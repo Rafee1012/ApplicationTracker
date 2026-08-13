@@ -1,6 +1,6 @@
 using ApplicationTracker.Domain;
 
-class ApplicationFolder
+public class ApplicationFolder
 {
     private List<Application> Applications { get; }
 

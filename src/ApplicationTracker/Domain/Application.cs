@@ -1,12 +1,27 @@
 using ApplicationTracker.Domain;
 
-class Application
+public class Application
 {
     public Guid ID { get; private set; }
     private string Name { get; set; }
     private string Organization { get; set; }
     private string? Desc { get; set; }
-    public ApplicationStatus Status { get; set; }
+
+    private ApplicationStatus status;
+    public ApplicationStatus Status
+    {
+        get
+        {
+            return status;
+        }
+        set
+        {
+            if (Enum.IsDefined(typeof(ApplicationStatus), value))
+            {
+                status = value;
+            }
+        }
+    }
     private DateTime Date { get; set; }
 
     public Application(
