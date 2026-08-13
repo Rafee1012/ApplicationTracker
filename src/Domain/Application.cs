@@ -1,23 +1,25 @@
+using ApplicationTracker.Domain;
+
 class Application
 {
-    private Guid ID { get; set; }
+    public Guid ID { get; private set; }
     private string Name { get; set; }
     private string Organization { get; set; }
     private string? Desc { get; set; }
-    private ApplicationStatus Status { get; set; }
+    public ApplicationStatus Status { get; set; }
     private DateTime Date { get; set; }
 
     public Application(
         string name,
         string org,
-        [Optional] string desc,
         ApplicationStatus status,
-        DateTime date)
+        DateTime date,
+        string? desc = null)
     {
         ID = Guid.NewGuid();
         Name = name;
         Organization = org;
-        if (desc) Desc = desc;
+        if (desc != null) Desc = desc;
         Status = status;
         Date = date;
     }
