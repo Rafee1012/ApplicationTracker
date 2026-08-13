@@ -2,22 +2,26 @@ using ApplicationTracker.Domain;
 
 public class ApplicationFolder
 {
-    private List<Application> Applications { get; }
+    public List<Application> Applications { get; }
 
     public ApplicationFolder()
     {
         // TODO: make Applications instantiate with saved applications
         Applications = new List<Application>();
     }
-    
+
     // NOTE: app is constructed earlier in data pipeline and passed as object
     // if app already in Applications, throw exception, else add
     public void AddApplication(Application app)
     {
-        if (Applications.Contains(GetApplicationByID(app.ID)))
+        foreach (Application existing in Applications)
         {
-            throw new DuplicateApplicationException("Application already exists");
+            if (existing.ID == app.ID)
+            {
+                throw new DuplicateApplicationException("Application already exists");
+            }
         }
+
         Applications.Add(app);
     }
 
@@ -25,11 +29,16 @@ public class ApplicationFolder
     // if app not in Applications, throw exception, else remove
     public void RemoveApplication(Application app)
     {
-        if (!Applications.Contains(GetApplicationByID(app.ID)))
+        foreach (Application existing in Applications)
         {
-            throw new UnAddedApplicationException("Application does not exist");
+            if (existing.ID == app.ID)
+            {
+                Applications.Remove(app);
+                break;
+            }
         }
-        Applications.Remove(app);
+
+        throw new DuplicateApplicationException("Application already exists");
     }
 
     // if app not in Applications, throw exception
