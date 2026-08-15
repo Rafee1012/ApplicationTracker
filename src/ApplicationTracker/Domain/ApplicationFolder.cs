@@ -33,8 +33,8 @@ public class ApplicationFolder
         {
             if (existing.ID == app.ID)
             {
-                Applications.Remove(app);
-                break;
+                Applications.Remove(existing);
+                return;
             }
         }
 

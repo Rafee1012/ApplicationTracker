@@ -3,7 +3,7 @@ using ApplicationTracker.Domain;
 public class Application
 {
     public Guid ID { get; private set; }
-    private string Name { get; set; }
+    public string Name { get; private set; }
     private string Organization { get; set; }
     private string? Desc { get; set; }
 

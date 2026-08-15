@@ -22,43 +22,92 @@ public class ApplicationFolderTest
     [Fact]
     public void TestAddApp()
     {
-    Assert.Equal(0, folder.Applications.Count());
-       folder.AddApplication(application);
-       Assert.Equal(1, folder.Applications.Count());
+        Assert.Empty(folder.Applications);
+        folder.AddApplication(application);
+        Assert.Single(folder.Applications);
     }
 
     [Fact]
     public void TestAddDuplicateApp()
     {
+        Assert.Empty(folder.Applications);
+        folder.AddApplication(application);
+        Assert.Single(folder.Applications);
+
+        try
+        {
+            folder.AddApplication(application);
+            Assert.Fail("Should have thrown");
+        }
+        catch
+        {}
     }
 
     [Fact]
     public void TestRemoveApp()
     {
+        folder.AddApplication(application);
+        Assert.Single(folder.Applications);
+        folder.RemoveApplication(application);
+        Assert.Empty(folder.Applications);
     }
 
     [Fact]
-    public void TestRemoveUniqueApp()
+    public void TestRemoveUnAddedApp()
     {
+        Assert.Empty(folder.Applications);
+        try
+        {
+            folder.RemoveApplication(application);
+            Assert.Fail("Should have thrown");
+        }
+        catch
+        {}
     }
 
     [Fact]
     public void TestGetApp()
     {
+        Assert.Empty(folder.Applications);
+        folder.AddApplication(application);
+        Application app = folder.GetApplicationByID(application.ID);
+        Assert.Equal(application, app);
     }
 
     [Fact]
-    public void TestGetUnaddedApp()
+    public void TestGetUnAddedApp()
     {
+        Assert.Empty(folder.Applications);
+        try
+        {
+            folder.GetApplicationByID(application.ID);
+            Assert.Fail("Should have thrown");
+        }
+        catch
+        {}
     }
 
     [Fact]
     public void TestUpdateApp()
     {
+        Assert.Equal(ApplicationStatus.SAVED, application.Status);
+        folder.AddApplication(application);
+        folder.UpdateApplicationStatus(application.ID, ApplicationStatus.APPLIED);
+        Assert.Equal(ApplicationStatus.APPLIED, application.Status);
     }
 
     [Fact]
-    public void TestUpdateUnaddedApp()
+    public void TestUpdateUnAddedApp()
     {
+        Assert.Equal(ApplicationStatus.SAVED, application.Status);
+
+        try
+        {
+            folder.UpdateApplicationStatus(application.ID, ApplicationStatus.APPLIED);
+            Assert.Fail("Should have thrown");
+        }
+        catch
+        {}
+        Assert.Equal(ApplicationStatus.SAVED, application.Status);
     }
 }
