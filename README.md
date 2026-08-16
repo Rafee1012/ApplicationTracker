@@ -15,3 +15,8 @@ Run tests commands with ```cd tests/ApplicationTracker.tests```.
 - Run tests with: ```dotnet test```.
 - Build project with: ```dotnet build```.
 - Run project with: ```dotnet run```.
+
+Run frontend commands with ```cd frontend```.
+- Start project with: ```npm start```.
+- Build project with: ```npm build```.
+- Run tests with: ```npm test```.
