@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/ApplicationTracker.Api/ApplicationTracker.Api.csproj" />
     <Project Path="src/ApplicationTracker/ApplicationTracker.csproj" />
   </Folder>
   <Folder Name="/tests/">
