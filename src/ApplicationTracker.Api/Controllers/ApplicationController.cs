@@ -18,7 +18,7 @@ public class UpdateApplicationRequest
 [Route("api/applications")]
 public class ApplicationController : ControllerBase
 {
-    ApplicationFolder folder = new ApplicationFolder();
+    private static ApplicationFolder folder = new ApplicationFolder();
 
     [HttpGet]
     public IActionResult GetApplications()
@@ -55,10 +55,13 @@ public class ApplicationController : ControllerBase
 
             folder.AddApplication(application);
 
+            Console.WriteLine($"POST: {folder.Applications.Count} applications");
+
             return Ok(application);
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             return Conflict("Application already exists");
         }
     }

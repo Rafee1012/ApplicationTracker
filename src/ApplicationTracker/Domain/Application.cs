@@ -22,7 +22,7 @@ public class Application
             }
         }
     }
-    private DateTime Date { get; set; }
+    public DateTime Date { get; set; }
 
     public Application(
         string name,
