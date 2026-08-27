@@ -1,6 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using ApplicationTracker.Domain;
 
+public class AddApplicationRequest
+{
+    public string Name { get; set; }
+    public string Organization { get; set; }
+    public ApplicationStatus Status { get; set; }
+    public string? Desc { get; set; }
+}
+
 public class UpdateApplicationRequest
 {
     public ApplicationStatus Status { get; set; }
@@ -33,11 +41,20 @@ public class ApplicationController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddApplication(Application application)
+    public IActionResult AddApplication(AddApplicationRequest request)
     {
         try
         {
+            var application = new Application(
+                request.Name,
+                request.Organization,
+                request.Status,
+                DateTime.Now,
+                request.Desc
+            );
+
             folder.AddApplication(application);
+
             return Ok(application);
         }
         catch

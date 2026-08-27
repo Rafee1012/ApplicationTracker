@@ -4,8 +4,8 @@ public class Application
 {
     public Guid ID { get; private set; }
     public string Name { get; private set; }
-    private string Organization { get; set; }
-    private string? Desc { get; set; }
+    public string Organization { get; set; }
+    public string? Desc { get; set; }
 
     private ApplicationStatus status;
     public ApplicationStatus Status
